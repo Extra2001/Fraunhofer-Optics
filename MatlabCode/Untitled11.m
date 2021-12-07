@@ -1,7 +1,7 @@
 L = 0.1e-3;
 D = 25e-6;
 L = D;
-N = 512;
+N = 128;
 f = 500e-3;
 sita = 0;
 delta = L/N;
@@ -35,4 +35,4 @@ imagesc(result.*conj(result))
 figure(3)
 surf(x2, y2, result.*conj(result))
 
-I=result.*conj(result);
+I=real(result.*conj(result));

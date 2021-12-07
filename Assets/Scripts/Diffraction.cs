@@ -6,7 +6,10 @@ using Accord.Math;
 using System;
 using System.Numerics;
 using System.Threading.Tasks;
+using System.Threading;
 using Flurl.Http;
+using circ_fraunhofer;
+using MathWorks.MATLAB.NET.Arrays;
 
 public class Diffraction : MonoBehaviour
 {
@@ -33,6 +36,7 @@ public class Diffraction : MonoBehaviour
     public double yoffsetSlit = 0;
 
     public System.Numerics.Complex[,] aperatureInput;
+    public MyMatlabClass matlab = null;
 
     private void Start()
     {
@@ -45,6 +49,8 @@ public class Diffraction : MonoBehaviour
                 GetComponent<CameraSwitcher>().SwitchCamera(index);
             });
         }
+
+        Task.Run(() => InitializeMatlab());
 
         aperatureInput = new System.Numerics.Complex[sampling, sampling];
         aperture = new Texture2D(sampling, sampling, TextureFormat.ARGB32, false);
@@ -70,6 +76,14 @@ public class Diffraction : MonoBehaviour
         ScreenMat.mainTexture = screenImage;
     }
 
+    private void InitializeMatlab()
+    {
+        matlab = new MyMatlabClass();
+        matlab.circ_fraunhofer(ToMWArray(0.1e-3), ToMWArray(25e-6),
+            ToMWArray(64), ToMWArray(0.5), ToMWArray(0), ToMWArray(632.8e-9), ToMWArray(0), ToMWArray(0));
+        Debug.Log("Matlab引擎初始化成功");
+    }
+
     private void ResetAperature()
     {
         for (int i = 0; i < sampling; i++)
@@ -83,74 +97,40 @@ public class Diffraction : MonoBehaviour
         aperture.Apply();
     }
 
-    public void Render()
-    {
-        //var delta = screenSize / sampling;
-        //var k = 2 * Math.PI / lambda;
-        //var tmp = Accord.Math.Vector.Interval(-sampling / 2, sampling / 2 - 1, sampling);
-        //var fx = tmp.Multiply(7.32 * lambda * focal / diameter / sampling);
-        //var fy = tmp.Multiply(7.32 * lambda * focal / diameter / sampling);
-        //var (x1, y1) = Matrix.MeshGrid(fx, fy);
-        //var result = Matrix.Zeros<Complex>(sampling, sampling);
+    CancellationTokenSource source = null;
 
-        //List<Task<Complex[,]>> tasks = new List<Task<Complex[,]>>();
-        //int size = sampling / 32;
-        //for (int l = 0; l < 32; l++)
-        //{
-        //    int index = l;
-        //    tasks.Add(Task.Run(() =>
-        //    {
-        //        var resulttmp = Matrix.Zeros<Complex>(sampling, sampling);
-        //        int max = size * index + size;
-        //        for (int i = index * size; i < max; i++)
-        //        {
-        //            for (int j = 0; j < sampling; j++)
-        //            {
-        //                var tmp1 = x1.Multiply(i - sampling / 2 * delta).Add(y1.Multiply(j - sampling / 2 * delta));
-        //                var tmp2 = tmp1.MultiplyComplex(-Complex.ImaginaryOne * k * focal).Exp();
-        //                resulttmp = resulttmp.Add(tmp2.Multiply(aperatureInput[i, j] * delta * delta));
-        //            }
-        //        }
-        //        return resulttmp;
-        //    }));
-        //}
-        //Task.WhenAll(tasks).Wait();
-        //tasks.ForEach(x =>
-        //{
-        //    result = result.Add(x.Result);
-        //});
-        //result = result.Multiply(1 / lambda / focal);
-        var result = $"http://localhost:5000/".PostJsonAsync(new RequestModel()
+    public IEnumerator RenderMatlab()
+    {
+        double[,] result = new double[1, 1];
+        source?.Cancel();
+        source = new CancellationTokenSource();
+        Task.Run(() =>
         {
-            diameter = diameter,
-            aperture = null,
-            focal = focal,
-            lambda = lambda,
-            sampling = sampling,
-            screenSize = screenSize,
-            theta = theta,
-            xoffset = xoffsetLens,
-            yoffset = yoffsetLens
-        }).ReceiveJson<List<List<double>>>().Result;
-        
+            MyMatlabClass matlab = new MyMatlabClass();
+            var result1 = matlab.circ_fraunhofer(ToMWArray(screenSize), ToMWArray(diameter), ToMWArray(sampling),
+                ToMWArray(focal), ToMWArray(theta), ToMWArray(lambda), ToMWArray(xoffsetLens), ToMWArray(yoffsetLens));
+            result = (double[,])result1.ToArray();
+        }, source.Token);
+        while (result.GetLength(0) == 1)
+            yield return 1;
         float largest = 0;
         for (int i = 0; i < sampling - 1; i++)
         {
             for (int j = 0; j < sampling - 1; j++)
             {
-                float mod = (float)result[i][j];
+                float mod = (float)result[i, j];
                 if (mod > largest)
                 {
                     largest = mod;
                 }
             }
         }
-        
+
         for (int i = 0; i < sampling - 1; i++)
         {
             for (int j = 0; j < sampling - 1; j++)
             {
-                float mod = (float)result[i][j];
+                float mod = (float)result[i, j];
                 byte whiteVal = (byte)Mathf.RoundToInt(255 * Mathf.Clamp(mod, 0, largest) / largest);
                 screenImage.SetPixel(i, j, new Color32(whiteVal, whiteVal, whiteVal, 255));
             }
@@ -159,12 +139,24 @@ public class Diffraction : MonoBehaviour
         {
             for (int j = 0; j < sampling - 1; j++)
             {
-                float mod = (float)result[i][j];
+                float mod = (float)result[i, j];
                 byte whiteVal = (byte)Mathf.RoundToInt(255 * Mathf.Clamp(mod, 0, largest) / largest);
                 screenImage.SetPixel(i, j, new Color32(whiteVal, whiteVal, whiteVal, 255));
             }
         }
         screenImage.Apply();
+    }
+
+    public void Render()
+    {
+        StartCoroutine(nameof(RenderMatlab));
+    }
+
+    public static MWArray ToMWArray(double number)
+    {
+        double[,] vs = new double[1, 1];
+        vs[0, 0] = number;
+        return new MWNumericArray(vs);
     }
 
     public void Circle()

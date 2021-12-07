@@ -1,0 +1,46 @@
+# CompilerName=msvc160
+# Mode=optim
+ninja_required_version = 1.3
+
+# Basic folders
+root = .
+builddir = $root
+matlabdir = C:\PROGRA~1\Matlab
+startdir = C:\Users\jingx\Projects\fraunhofer-optics\MatlabCode
+
+# Toolchain information
+cc = cl
+cxx = cl
+linker = link
+linkerxx = link
+
+cflags =  /c /Zp8 /GR /W3 /EHs /nologo /MD /D_CRT_SECURE_NO_DEPRECATE /D_SCL_SECURE_NO_DEPRECATE /D_SECURE_SCL=0   /DMATLAB_MEX_FILE  /DMATLAB_MEX_FILE /O2 /Oy- /DNDEBUG /fp:strict /I "$startdir" /I "$startdir\codegen\dll\circ_fraunhofer\interface" /I "$startdir\codegen\dll\circ_fraunhofer" /I "C:\Program Files\Matlab\toolbox\coder\rtiostream\src\utils_host" /I "C:\Program Files\Matlab\extern\include" /I "." -DMODEL=circ_fraunhofer_sil -DMATLAB_MEX_FILE 
+
+cxxflags =   /c /Zp8 /GR /W3 /EHs /nologo /MD /D_CRT_SECURE_NO_DEPRECATE /D_SCL_SECURE_NO_DEPRECATE /D_SECURE_SCL=0   /DMATLAB_MEX_FILE  /DMATLAB_MEX_FILE /O2 /Oy- /DNDEBUG /fp:strict /I "$startdir" /I "$startdir\codegen\dll\circ_fraunhofer\interface" /I "$startdir\codegen\dll\circ_fraunhofer" /I "C:\Program Files\Matlab\toolbox\coder\rtiostream\src\utils_host" /I "C:\Program Files\Matlab\extern\include" /I "." -DMODEL=circ_fraunhofer_sil -DMATLAB_MEX_FILE 
+
+ldflags =  /nologo /manifest   /DLL /LIBPATH:"C:\Program Files\Matlab\extern\lib\win64\microsoft" libmx.lib libmex.lib libmat.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib  /out:"circ_fraunhofer_sil.mexw64" libemlrt.lib libcovrt.lib libut.lib libmwmathutil.lib  $matlabdir\extern\lib\win64\microsoft\libfixedpoint.lib  $matlabdir\extern\lib\win64\microsoft\libmwcoder_CoderAssumpHostAppSvc.lib  $matlabdir\extern\lib\win64\microsoft\libmwcoder_XILHostAppSvc.lib  $matlabdir\extern\lib\win64\microsoft\libmwrtiostreamutils.lib  $matlabdir\extern\lib\win64\microsoft\libmwxilcomms_rtiostream.lib  $matlabdir\extern\lib\win64\microsoft\libmwxilutils.lib /export:mexFunction /export:mexfilerequiredapiversion /export:emlrtMexFcnProperties
+
+# Build Rules
+rule cc
+    command = $cc $cflags $in /Fo$out
+
+rule cxx
+    command = $cxx $cxxflags $in /Fo$out
+
+rule link
+    command = $linker @$out.rsp $ldflags
+    rspfile = $out.rsp
+    rspfile_content = $in
+
+rule linkxx
+    command = $linkerxx $in $ldflags
+
+# Build
+build $builddir\circ_fraunhofer_sil.obj : cc $root\circ_fraunhofer_sil.c
+build $builddir\_coder_circ_fraunhofer_info.obj : cc $startdir\codegen\dll\circ_fraunhofer\interface\_coder_circ_fraunhofer_info.c
+build $builddir\_coder_circ_fraunhofer_api.obj : cc $startdir\codegen\dll\circ_fraunhofer\interface\_coder_circ_fraunhofer_api.c
+build $builddir\_coder_circ_fraunhofer_mex.obj : cc $startdir\codegen\dll\circ_fraunhofer\interface\_coder_circ_fraunhofer_mex.c
+build $builddir\c_mexapi_version.obj : cc C$:\Program$ Files\Matlab\extern\version\c_mexapi_version.c
+
+# Link
+build $root\circ_fraunhofer_sil.mexw64 : link $builddir\circ_fraunhofer_sil.obj $builddir\_coder_circ_fraunhofer_info.obj $builddir\_coder_circ_fraunhofer_api.obj $builddir\_coder_circ_fraunhofer_mex.obj $builddir\c_mexapi_version.obj 

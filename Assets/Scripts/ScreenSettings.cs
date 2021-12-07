@@ -40,6 +40,7 @@ public class ScreenSettings : MonoBehaviour
         {
             Diffraction.Instance.diameter = Mathf.Round(slider.value) * 1e-6;
             Diffraction.Instance.Circle();
+            Diffraction.Instance.Render();
         });
     }
 

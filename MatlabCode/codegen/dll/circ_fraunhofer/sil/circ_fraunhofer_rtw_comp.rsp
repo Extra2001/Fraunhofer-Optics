@@ -1,0 +1,11 @@
+-IC:\Users\jingx\Projects\fraunhofer-optics\MatlabCode\codegen\dll\circ_fraunhofer
+-IC:\Users\jingx\Projects\fraunhofer-optics\MatlabCode
+-I"C:\Program Files\Matlab\extern\include"
+-I"C:\Program Files\Matlab\toolbox\rtw\targets\pil\c"
+-IC:\Users\jingx\Projects\fraunhofer-optics\MatlabCode\codegen\dll\circ_fraunhofer\sil
+-I"C:\Program Files\Matlab\extern\include\coder\connectivity\XILTgtAppSvc"
+-I"C:\Program Files\Matlab\toolbox\coder\rtiostream\src\utils"
+-I"C:\Program Files\Matlab\toolbox\coder\rtiostream\src"
+-I"C:\Program Files\Matlab\extern\include\coder\connectivity\CoderAssumpTgtAppSvc"
+-IC:\Users\jingx\Projects\fraunhofer-optics\MatlabCode\codegen\dll\circ_fraunhofer\coderassumptions
+-IC:\Users\jingx\Projects\fraunhofer-optics\MatlabCode\codegen\dll\circ_fraunhofer\target
