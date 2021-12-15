@@ -1,9 +1,9 @@
-/*
- * File: rtGetNaN.h
- *
- * MATLAB Coder version            : 5.0
- * C/C++ source code generated on  : 07-Dec-2021 13:55:02
- */
+//
+//  File: rtGetNaN.h
+//
+//  MATLAB Coder version            : 5.0
+//  C/C++ source code generated on  : 13-Dec-2021 23:04:07
+
 
 #ifndef RTGETNAN_H
 #define RTGETNAN_H
@@ -27,8 +27,8 @@ extern "C" {
 #endif
 #endif
 
-/*
- * File trailer for rtGetNaN.h
- *
- * [EOF]
- */
+//
+//  File trailer for rtGetNaN.h
+//
+//  [EOF]
+

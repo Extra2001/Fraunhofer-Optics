@@ -2,7 +2,7 @@
  * File: _coder_circ_fraunhofer_api.h
  *
  * MATLAB Coder version            : 5.0
- * C/C++ source code generated on  : 07-Dec-2021 13:55:02
+ * C/C++ source code generated on  : 13-Dec-2021 23:04:07
  */
 
 #ifndef _CODER_CIRC_FRAUNHOFER_API_H
@@ -42,28 +42,20 @@ typedef struct emxArray_real_T emxArray_real_T;
 extern emlrtCTX emlrtRootTLSGlobal;
 extern emlrtContext emlrtContextGlobal;
 
+#define MAX_THREADS                    omp_get_max_threads()
+
 /* Function Declarations */
-#ifdef __cplusplus
+extern void circ_fraunhoferXilWrapper(real_T D, real_T N, real_T sita, real_T
+  lambda, real_T f, real_T xd, real_T yd, emxArray_real_T *b_I);
+extern void circ_fraunhofer_api(const mxArray * const prhs[7], int32_T nlhs,
+  const mxArray *plhs[1]);
+extern void circ_fraunhofer_atexit(void);
+extern void circ_fraunhofer_initialize(void);
+extern void circ_fraunhofer_terminate(void);
+extern void circ_fraunhofer_xil_shutdown(void);
+extern void circ_fraunhofer_xil_terminate(void);
+extern void xil_terminate(void);
 
-extern "C" {
-
-#endif
-
-  extern void circ_fraunhoferXilWrapper(real_T L, real_T D, int32_T N, real_T f,
-    real_T sita, real_T lambda, real_T xd, real_T yd, emxArray_real_T *b_I);
-  extern void circ_fraunhofer_api(const mxArray * const prhs[8], int32_T nlhs,
-    const mxArray *plhs[1]);
-  extern void circ_fraunhofer_atexit(void);
-  extern void circ_fraunhofer_initialize(void);
-  extern void circ_fraunhofer_terminate(void);
-  extern void circ_fraunhofer_xil_shutdown(void);
-  extern void circ_fraunhofer_xil_terminate(void);
-  extern void xil_terminate(void);
-
-#ifdef __cplusplus
-
-}
-#endif
 #endif
 
 /*

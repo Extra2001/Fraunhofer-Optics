@@ -1,0 +1,54 @@
+# CompilerName=msvcpp160
+# Mode=optim
+ninja_required_version = 1.3
+
+# Basic folders
+root = .
+builddir = $root\build\win64
+matlabdir = C:\Program Files\Matlab
+startdir = C:\Users\jingx\Projects\fraunhofer-optics\MatlabCode
+
+# Toolchain information
+cc = cl
+cxx = cl
+linker = link
+linkerxx = link
+
+cflags =  /c /Zp8 /GR /W3 /EHs /nologo /MD /D_CRT_SECURE_NO_DEPRECATE /D_SCL_SECURE_NO_DEPRECATE /D_SECURE_SCL=0   /DMATLAB_MEX_FILE  /DMATLAB_MEX_FILE /O2 /Oy- /DNDEBUG /fp:strict /I "$root" /I "$startdir" /I "$root\interface" /I "$matlabdir\extern\include" /I "." -DMODEL=circ_fraunhofer_mex -DMW_NEEDS_VERSION_H  
+
+cxxflags =   /c /Zp8 /GR /W3 /EHs /nologo /MD /D_CRT_SECURE_NO_DEPRECATE /D_SCL_SECURE_NO_DEPRECATE /D_SECURE_SCL=0   /DMATLAB_MEX_FILE  /DMATLAB_MEX_FILE /O2 /Oy- /DNDEBUG /fp:strict /I "$root" /I "$startdir" /I "$root\interface" /I "$matlabdir\extern\include" /I "." -DMODEL=circ_fraunhofer_mex -DMW_NEEDS_VERSION_H  
+
+ldflags =  /nologo /manifest   /DLL /LIBPATH:"$matlabdir\extern\lib\win64\microsoft" libmx.lib libmex.lib libmat.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib libMatlabDataArray.lib libMatlabEngine.lib  /out:"circ_fraunhofer_mex.mexw64" libemlrt.lib libcovrt.lib libut.lib libmwmathutil.lib 
+
+# Build Rules
+rule cc
+    command = $cc $cflags $in /Fo$out
+
+rule cxx
+    command = $cxx $cxxflags $in /Fo$out
+
+rule link
+    command = $linker @$out.rsp $ldflags
+    rspfile = $out.rsp
+    rspfile_content = $in
+
+rule linkxx
+    command = $linkerxx $in $ldflags
+
+# Build
+build $builddir\rt_nonfinite.obj : cxx $root\rt_nonfinite.cpp
+build $builddir\circ_fraunhofer_data.obj : cxx $root\circ_fraunhofer_data.cpp
+build $builddir\circ_fraunhofer_initialize.obj : cxx $root\circ_fraunhofer_initialize.cpp
+build $builddir\circ_fraunhofer_terminate.obj : cxx $root\circ_fraunhofer_terminate.cpp
+build $builddir\circ_fraunhofer.obj : cxx $root\circ_fraunhofer.cpp
+build $builddir\eml_int_forloop_overflow_check.obj : cxx $root\eml_int_forloop_overflow_check.cpp
+build $builddir\power.obj : cxx $root\power.cpp
+build $builddir\fft2.obj : cxx $root\fft2.cpp
+build $builddir\fftshift.obj : cxx $root\fftshift.cpp
+build $builddir\_coder_circ_fraunhofer_api.obj : cxx $root\interface\_coder_circ_fraunhofer_api.cpp
+build $builddir\_coder_circ_fraunhofer_mex.obj : cxx $root\interface\_coder_circ_fraunhofer_mex.cpp
+build $builddir\_coder_circ_fraunhofer_info.obj : cxx $root\interface\_coder_circ_fraunhofer_info.cpp
+build $builddir\cpp_mexapi_version.obj : cxx $matlabdir\extern\version\cpp_mexapi_version.cpp
+
+# Link
+build $root\circ_fraunhofer_mex.mexw64 : linkxx $builddir\rt_nonfinite.obj $builddir\circ_fraunhofer_data.obj $builddir\circ_fraunhofer_initialize.obj $builddir\circ_fraunhofer_terminate.obj $builddir\circ_fraunhofer.obj $builddir\eml_int_forloop_overflow_check.obj $builddir\power.obj $builddir\fft2.obj $builddir\fftshift.obj $builddir\_coder_circ_fraunhofer_api.obj $builddir\_coder_circ_fraunhofer_mex.obj $builddir\_coder_circ_fraunhofer_info.obj $builddir\cpp_mexapi_version.obj 

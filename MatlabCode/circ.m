@@ -2,7 +2,7 @@ function z = circ(x,y,D,delta,sita,lambda)
 % matlab code for evaluating the circ function
     r = sqrt(x.^2+y.^2);
     z = double(r<D/2);
-    z(r==D/2) = 0.5;
+    z(r == D/2) = 0.5;
     N = size(x);
     N = N(1);
     z = complex(z);

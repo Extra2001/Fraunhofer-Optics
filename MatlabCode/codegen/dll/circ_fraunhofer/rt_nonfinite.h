@@ -1,9 +1,9 @@
-/*
- * File: rt_nonfinite.h
- *
- * MATLAB Coder version            : 5.0
- * C/C++ source code generated on  : 07-Dec-2021 13:55:02
- */
+//
+//  File: rt_nonfinite.h
+//
+//  MATLAB Coder version            : 5.0
+//  C/C++ source code generated on  : 13-Dec-2021 23:04:07
+
 
 #ifndef RT_NONFINITE_H
 #define RT_NONFINITE_H
@@ -32,8 +32,8 @@ extern "C" {
 #endif
 #endif
 
-/*
- * File trailer for rt_nonfinite.h
- *
- * [EOF]
- */
+//
+//  File trailer for rt_nonfinite.h
+//
+//  [EOF]
+

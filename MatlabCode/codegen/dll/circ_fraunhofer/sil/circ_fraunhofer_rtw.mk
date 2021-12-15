@@ -2,7 +2,7 @@
 ## Makefile generated for MATLAB file/project 'circ_fraunhofer'. 
 ## 
 ## Makefile     : circ_fraunhofer_rtw.mk
-## Generated on : Tue Dec 07 13:55:15 2021
+## Generated on : Mon Dec 13 23:04:29 2021
 ## MATLAB Coder version: 5.0 (R2020a)
 ## 
 ## Build Info:
@@ -30,7 +30,7 @@ MATLAB_BIN                = C:\PROGRA~1\Matlab\bin
 MATLAB_ARCH_BIN           = $(MATLAB_BIN)\win64
 MASTER_ANCHOR_DIR         = 
 START_DIR                 = C:\Users\jingx\Projects\fraunhofer-optics\MatlabCode\codegen\dll\circ_fraunhofer
-TGT_FCN_LIB               = ISO_C
+TGT_FCN_LIB               = ISO_C++
 SOLVER_OBJ                = 
 CLASSIC_INTERFACE         = 0
 MODEL_HAS_DYNAMICALLY_LOADED_SFCNS = 
@@ -178,17 +178,18 @@ INCLUDES = $(INCLUDES_BUILDINFO)
 ## DEFINES
 ###########################################################################
 
+DEFINES_ = -DBUILDING_CIRC_FRAUNHOFER -DMODEL=circ_fraunhofer -DXIL_SIGNAL_HANDLER=1 -DCODER_ASSUMPTIONS_ENABLED=1 -DRTIOSTREAM_RX_BUFFER_BYTE_SIZE=50000 -DRTIOSTREAM_TX_BUFFER_BYTE_SIZE=50000 -DMEM_UNIT_BYTES=1 -DMemUnit_T=uint8_T
 DEFINES_CUSTOM = 
 DEFINES_OPTS = -DXIL_SIGNAL_HANDLER=1 -DCODER_ASSUMPTIONS_ENABLED=1 -DRTIOSTREAM_RX_BUFFER_BYTE_SIZE=50000 -DRTIOSTREAM_TX_BUFFER_BYTE_SIZE=50000 -DMEM_UNIT_BYTES=1 -DMemUnit_T=uint8_T
 DEFINES_STANDARD = -DMODEL=circ_fraunhofer
 
-DEFINES = $(DEFINES_CUSTOM) $(DEFINES_OPTS) $(DEFINES_STANDARD)
+DEFINES = $(DEFINES_) $(DEFINES_CUSTOM) $(DEFINES_OPTS) $(DEFINES_STANDARD)
 
 ###########################################################################
 ## SOURCE FILES
 ###########################################################################
 
-SRCS = $(MATLAB_ROOT)\toolbox\rtw\targets\pil\c\xil_interface_lib.c $(MATLAB_ROOT)\toolbox\rtw\targets\pil\c\xil_data_stream.c $(MATLAB_ROOT)\toolbox\rtw\targets\pil\c\xil_services.c $(START_DIR)\sil\xil_interface.c $(MATLAB_ROOT)\toolbox\rtw\targets\pil\c\xilcomms_rtiostream.c $(MATLAB_ROOT)\toolbox\rtw\targets\pil\c\xil_rtiostream.c $(MATLAB_ROOT)\toolbox\coder\rtiostream\src\utils\rtiostream_utils.c $(MATLAB_ROOT)\toolbox\rtw\targets\pil\c\coder_assumptions_app.c $(MATLAB_ROOT)\toolbox\rtw\targets\pil\c\coder_assumptions_data_stream.c $(MATLAB_ROOT)\toolbox\rtw\targets\pil\c\coder_assumptions_rtiostream.c $(MATLAB_ROOT)\toolbox\rtw\targets\pil\c\sil_main.c $(MATLAB_ROOT)\toolbox\rtw\targets\pil\c\target_io.c $(MATLAB_ROOT)\toolbox\coder\rtiostream\src\rtiostreamtcpip\rtiostream_tcpip.c $(START_DIR)\target\_coder_circ_fraunhofer_target.c
+SRCS = $(MATLAB_ROOT)\toolbox\rtw\targets\pil\c\xil_interface_lib.c $(MATLAB_ROOT)\toolbox\rtw\targets\pil\c\xil_data_stream.c $(MATLAB_ROOT)\toolbox\rtw\targets\pil\c\xil_services.c $(START_DIR)\sil\xil_interface.cpp $(MATLAB_ROOT)\toolbox\rtw\targets\pil\c\xilcomms_rtiostream.c $(MATLAB_ROOT)\toolbox\rtw\targets\pil\c\xil_rtiostream.c $(MATLAB_ROOT)\toolbox\coder\rtiostream\src\utils\rtiostream_utils.c $(MATLAB_ROOT)\toolbox\rtw\targets\pil\c\coder_assumptions_app.c $(MATLAB_ROOT)\toolbox\rtw\targets\pil\c\coder_assumptions_data_stream.c $(MATLAB_ROOT)\toolbox\rtw\targets\pil\c\coder_assumptions_rtiostream.c $(MATLAB_ROOT)\toolbox\rtw\targets\pil\c\sil_main.c $(MATLAB_ROOT)\toolbox\rtw\targets\pil\c\target_io.c $(MATLAB_ROOT)\toolbox\coder\rtiostream\src\rtiostreamtcpip\rtiostream_tcpip.c $(START_DIR)\target\_coder_circ_fraunhofer_target.cpp
 
 ALL_SRCS = $(SRCS)
 
@@ -218,7 +219,7 @@ LIBS = $(START_DIR)\coderassumptions\lib\circ_fraunhofer_ca.lib
 ## SYSTEM LIBRARIES
 ###########################################################################
 
-SYSTEM_LIBS = 
+SYSTEM_LIBS =  /LIBPATH:"$(MATLAB_ROOT)\bin\win64" "$(MATLAB_ROOT)\bin\win64\libiomp5md.lib"
 
 ###########################################################################
 ## ADDITIONAL TOOLCHAIN FLAGS
@@ -228,17 +229,51 @@ SYSTEM_LIBS =
 # C Compiler
 #---------------
 
+CFLAGS_OPTS = /openmp /wd4101
 CFLAGS_BASIC = $(DEFINES) @$(COMPILER_COMMAND_FILE)
 
-CFLAGS = $(CFLAGS) $(CFLAGS_BASIC)
+CFLAGS = $(CFLAGS) $(CFLAGS_OPTS) $(CFLAGS_BASIC)
 
 #-----------------
 # C++ Compiler
 #-----------------
 
+CPPFLAGS_OPTS = /openmp /wd4101
 CPPFLAGS_BASIC = $(DEFINES) @$(COMPILER_COMMAND_FILE)
 
-CPPFLAGS = $(CPPFLAGS) $(CPPFLAGS_BASIC)
+CPPFLAGS = $(CPPFLAGS) $(CPPFLAGS_OPTS) $(CPPFLAGS_BASIC)
+
+#---------------
+# C++ Linker
+#---------------
+
+CPP_LDFLAGS_ = /nodefaultlib:vcomp  
+
+CPP_LDFLAGS = $(CPP_LDFLAGS) $(CPP_LDFLAGS_)
+
+#------------------------------
+# C++ Shared Library Linker
+#------------------------------
+
+CPP_SHAREDLIB_LDFLAGS_ = /nodefaultlib:vcomp  
+
+CPP_SHAREDLIB_LDFLAGS = $(CPP_SHAREDLIB_LDFLAGS) $(CPP_SHAREDLIB_LDFLAGS_)
+
+#-----------
+# Linker
+#-----------
+
+LDFLAGS_ = /nodefaultlib:vcomp  
+
+LDFLAGS = $(LDFLAGS) $(LDFLAGS_)
+
+#--------------------------
+# Shared Library Linker
+#--------------------------
+
+SHAREDLIB_LDFLAGS_ = /nodefaultlib:vcomp  
+
+SHAREDLIB_LDFLAGS = $(SHAREDLIB_LDFLAGS) $(SHAREDLIB_LDFLAGS_)
 
 ###########################################################################
 ## INLINED COMMANDS
@@ -293,7 +328,7 @@ set_environment_variables :
 
 $(PRODUCT) : $(OBJS) $(PREBUILT_OBJS) $(MODELREF_LIBS) $(LIBS)
 	@cmd /C "@echo ### Creating standalone executable "$(PRODUCT)" ..."
-	$(LD) $(LDFLAGS) -out:$(PRODUCT) @$(CMD_FILE) @$(MODELREF_LINK_RSPFILE) $(LIBS) $(SYSTEM_LIBS) $(TOOLCHAIN_LIBS)
+	$(CPP_LD) $(CPP_LDFLAGS) -out:$(PRODUCT) @$(CMD_FILE) @$(MODELREF_LINK_RSPFILE) $(LIBS) $(SYSTEM_LIBS) $(TOOLCHAIN_LIBS)
 	@cmd /C "@echo ### Created: $(PRODUCT)"
 
 
@@ -357,8 +392,8 @@ xil_services.obj : $(MATLAB_ROOT)\toolbox\rtw\targets\pil\c\xil_services.c
 	$(CC) $(CFLAGS) -Fo"$@" $(MATLAB_ROOT)\toolbox\rtw\targets\pil\c\xil_services.c
 
 
-xil_interface.obj : $(START_DIR)\sil\xil_interface.c
-	$(CC) $(CFLAGS) -Fo"$@" $(START_DIR)\sil\xil_interface.c
+xil_interface.obj : $(START_DIR)\sil\xil_interface.cpp
+	$(CPP) $(CPPFLAGS) -Fo"$@" $(START_DIR)\sil\xil_interface.cpp
 
 
 xilcomms_rtiostream.obj : $(MATLAB_ROOT)\toolbox\rtw\targets\pil\c\xilcomms_rtiostream.c
@@ -397,8 +432,8 @@ rtiostream_tcpip.obj : $(MATLAB_ROOT)\toolbox\coder\rtiostream\src\rtiostreamtcp
 	$(CC) $(CFLAGS) -Fo"$@" $(MATLAB_ROOT)\toolbox\coder\rtiostream\src\rtiostreamtcpip\rtiostream_tcpip.c
 
 
-_coder_circ_fraunhofer_target.obj : $(START_DIR)\target\_coder_circ_fraunhofer_target.c
-	$(CC) $(CFLAGS) -Fo"$@" $(START_DIR)\target\_coder_circ_fraunhofer_target.c
+_coder_circ_fraunhofer_target.obj : $(START_DIR)\target\_coder_circ_fraunhofer_target.cpp
+	$(CPP) $(CPPFLAGS) -Fo"$@" $(START_DIR)\target\_coder_circ_fraunhofer_target.cpp
 
 
 ###########################################################################

@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
-  <configuration file="C:\Users\jingx\Projects\fraunhofer-optics\MatlabCode\circ_fraunhofer1.prj" location="C:\Users\jingx\Projects\fraunhofer-optics\MatlabCode" name="circ_fraunhofer1" preferred-package-location="C:\Users\jingx\Projects\fraunhofer-optics\MatlabCode\circ_fraunhofer1\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.library" target-name="Library Compiler">
+  <configuration file="C:\Users\jingx\Projects\fraunhofer-optics\MatlabCode\circ_fraunhofer1.prj" location="C:\Users\jingx\Projects\fraunhofer-optics\MatlabCode" name="circ_fraunhofer1" target="target.ezdeploy.library" target-name="Library Compiler">
     <param.appname>circ_fraunhofer</param.appname>
     <param.icon />
     <param.icons />
@@ -107,9 +107,7 @@
       </entity.package>
     </fileset.classes>
     <fileset.resources />
-    <fileset.depfun>
-      <file>${PROJECT_ROOT}\circ.m</file>
-    </fileset.depfun>
+    <fileset.depfun />
     <fileset.package />
     <fileset.examples />
     <fileset.documentation />

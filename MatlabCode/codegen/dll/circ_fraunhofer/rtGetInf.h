@@ -1,9 +1,9 @@
-/*
- * File: rtGetInf.h
- *
- * MATLAB Coder version            : 5.0
- * C/C++ source code generated on  : 07-Dec-2021 13:55:02
- */
+//
+//  File: rtGetInf.h
+//
+//  MATLAB Coder version            : 5.0
+//  C/C++ source code generated on  : 13-Dec-2021 23:04:07
+
 
 #ifndef RTGETINF_H
 #define RTGETINF_H
@@ -26,8 +26,8 @@ extern "C" {
 #endif
 #endif
 
-/*
- * File trailer for rtGetInf.h
- *
- * [EOF]
- */
+//
+//  File trailer for rtGetInf.h
+//
+//  [EOF]
+

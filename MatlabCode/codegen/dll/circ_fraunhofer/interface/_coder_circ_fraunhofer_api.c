@@ -2,7 +2,7 @@
  * File: _coder_circ_fraunhofer_api.c
  *
  * MATLAB Coder version            : 5.0
- * C/C++ source code generated on  : 07-Dec-2021 13:55:02
+ * C/C++ source code generated on  : 13-Dec-2021 23:04:07
  */
 
 /* Include Files */
@@ -27,23 +27,16 @@ emlrtContext emlrtContextGlobal = { true,/* bFirstTime */
 static real_T b_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u, const
   emlrtMsgIdentifier *parentId);
 static void b_xilHostDeserializer(int32_T b[2]);
-static void b_xilHostSerializer(const int32_T *b);
-static int32_T c_emlrt_marshallIn(const emlrtStack *sp, const mxArray *N, const
-  char_T *identifier);
-static void circ_fraunhofer_once(void);
-static int32_T d_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u, const
-  emlrtMsgIdentifier *parentId);
-static real_T e_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src, const
+static real_T c_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src, const
   emlrtMsgIdentifier *msgId);
-static real_T emlrt_marshallIn(const emlrtStack *sp, const mxArray *L, const
+static void circ_fraunhofer_once(void);
+static real_T emlrt_marshallIn(const emlrtStack *sp, const mxArray *D, const
   char_T *identifier);
 static const mxArray *emlrt_marshallOut(const emxArray_real_T *u);
 static void emxEnsureCapacity_real_T(emxArray_real_T *emxArray, int32_T oldNumel);
 static void emxFree_real_T(emxArray_real_T **pEmxArray);
 static void emxInit_real_T(const emlrtStack *sp, emxArray_real_T **pEmxArray,
   int32_T numDimensions, boolean_T doPush);
-static int32_T f_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src,
-  const emlrtMsgIdentifier *msgId);
 static void xilHostDeserializer(emxArray_real_T *b);
 static void xilHostSerializer(const real_T *b);
 
@@ -59,7 +52,7 @@ static real_T b_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u, const
   emlrtMsgIdentifier *parentId)
 {
   real_T y;
-  y = e_emlrt_marshallIn(sp, emlrtAlias(u), parentId);
+  y = c_emlrt_marshallIn(sp, emlrtAlias(u), parentId);
   emlrtDestroyArray(&u);
   return y;
 }
@@ -74,31 +67,20 @@ static void b_xilHostDeserializer(int32_T b[2])
 }
 
 /*
- * Arguments    : const int32_T *b
- * Return Type  : void
- */
-static void b_xilHostSerializer(const int32_T *b)
-{
-  xilWriteData((uint8_T *)b, (size_t)1, MEM_UNIT_INT32_TYPE);
-}
-
-/*
  * Arguments    : const emlrtStack *sp
- *                const mxArray *N
- *                const char_T *identifier
- * Return Type  : int32_T
+ *                const mxArray *src
+ *                const emlrtMsgIdentifier *msgId
+ * Return Type  : real_T
  */
-static int32_T c_emlrt_marshallIn(const emlrtStack *sp, const mxArray *N, const
-  char_T *identifier)
+static real_T c_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src, const
+  emlrtMsgIdentifier *msgId)
 {
-  int32_T y;
-  emlrtMsgIdentifier thisId;
-  thisId.fIdentifier = (const char *)identifier;
-  thisId.fParent = NULL;
-  thisId.bParentIsCell = false;
-  y = d_emlrt_marshallIn(sp, emlrtAlias(N), &thisId);
-  emlrtDestroyArray(&N);
-  return y;
+  real_T ret;
+  static const int32_T dims = 0;
+  emlrtCheckBuiltInR2012b(sp, msgId, src, "double", false, 0U, &dims);
+  ret = *(real_T *)emlrtMxGetData(src);
+  emlrtDestroyArray(&src);
+  return ret;
 }
 
 /*
@@ -112,43 +94,11 @@ static void circ_fraunhofer_once(void)
 
 /*
  * Arguments    : const emlrtStack *sp
- *                const mxArray *u
- *                const emlrtMsgIdentifier *parentId
- * Return Type  : int32_T
- */
-static int32_T d_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u, const
-  emlrtMsgIdentifier *parentId)
-{
-  int32_T y;
-  y = f_emlrt_marshallIn(sp, emlrtAlias(u), parentId);
-  emlrtDestroyArray(&u);
-  return y;
-}
-
-/*
- * Arguments    : const emlrtStack *sp
- *                const mxArray *src
- *                const emlrtMsgIdentifier *msgId
- * Return Type  : real_T
- */
-static real_T e_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src, const
-  emlrtMsgIdentifier *msgId)
-{
-  real_T ret;
-  static const int32_T dims = 0;
-  emlrtCheckBuiltInR2012b(sp, msgId, src, "double", false, 0U, &dims);
-  ret = *(real_T *)emlrtMxGetData(src);
-  emlrtDestroyArray(&src);
-  return ret;
-}
-
-/*
- * Arguments    : const emlrtStack *sp
- *                const mxArray *L
+ *                const mxArray *D
  *                const char_T *identifier
  * Return Type  : real_T
  */
-static real_T emlrt_marshallIn(const emlrtStack *sp, const mxArray *L, const
+static real_T emlrt_marshallIn(const emlrtStack *sp, const mxArray *D, const
   char_T *identifier)
 {
   real_T y;
@@ -156,8 +106,8 @@ static real_T emlrt_marshallIn(const emlrtStack *sp, const mxArray *L, const
   thisId.fIdentifier = (const char *)identifier;
   thisId.fParent = NULL;
   thisId.bParentIsCell = false;
-  y = b_emlrt_marshallIn(sp, emlrtAlias(L), &thisId);
-  emlrtDestroyArray(&L);
+  y = b_emlrt_marshallIn(sp, emlrtAlias(D), &thisId);
+  emlrtDestroyArray(&D);
   return y;
 }
 
@@ -273,23 +223,6 @@ static void emxInit_real_T(const emlrtStack *sp, emxArray_real_T **pEmxArray,
 }
 
 /*
- * Arguments    : const emlrtStack *sp
- *                const mxArray *src
- *                const emlrtMsgIdentifier *msgId
- * Return Type  : int32_T
- */
-static int32_T f_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src,
-  const emlrtMsgIdentifier *msgId)
-{
-  int32_T ret;
-  static const int32_T dims = 0;
-  emlrtCheckBuiltInR2012b(sp, msgId, src, "int32", false, 0U, &dims);
-  ret = *(int32_T *)emlrtMxGetData(src);
-  emlrtDestroyArray(&src);
-  return ret;
-}
-
-/*
  * Arguments    : emxArray_real_T *b
  * Return Type  : void
  */
@@ -316,37 +249,33 @@ static void xilHostSerializer(const real_T *b)
 }
 
 /*
- * Arguments    : real_T L
- *                real_T D
- *                int32_T N
- *                real_T f
+ * Arguments    : real_T D
+ *                real_T N
  *                real_T sita
  *                real_T lambda
+ *                real_T f
  *                real_T xd
  *                real_T yd
  *                emxArray_real_T *b_I
  * Return Type  : void
  */
-void circ_fraunhoferXilWrapper(real_T L, real_T D, int32_T N, real_T f, real_T
-  sita, real_T lambda, real_T xd, real_T yd, emxArray_real_T *b_I)
+void circ_fraunhoferXilWrapper(real_T D, real_T N, real_T sita, real_T lambda,
+  real_T f, real_T xd, real_T yd, emxArray_real_T *b_I)
 {
-  /* Serialize function input argument L. */
-  xilHostSerializer(&L);
-
   /* Serialize function input argument D. */
   xilHostSerializer(&D);
 
   /* Serialize function input argument N. */
-  b_xilHostSerializer(&N);
-
-  /* Serialize function input argument f. */
-  xilHostSerializer(&f);
+  xilHostSerializer(&N);
 
   /* Serialize function input argument sita. */
   xilHostSerializer(&sita);
 
   /* Serialize function input argument lambda. */
   xilHostSerializer(&lambda);
+
+  /* Serialize function input argument f. */
+  xilHostSerializer(&f);
 
   /* Serialize function input argument xd. */
   xilHostSerializer(&xd);
@@ -362,21 +291,20 @@ void circ_fraunhoferXilWrapper(real_T L, real_T D, int32_T N, real_T f, real_T
 }
 
 /*
- * Arguments    : const mxArray * const prhs[8]
+ * Arguments    : const mxArray * const prhs[7]
  *                int32_T nlhs
  *                const mxArray *plhs[1]
  * Return Type  : void
  */
-void circ_fraunhofer_api(const mxArray * const prhs[8], int32_T nlhs, const
+void circ_fraunhofer_api(const mxArray * const prhs[7], int32_T nlhs, const
   mxArray *plhs[1])
 {
   emxArray_real_T *b_I;
-  real_T L;
   real_T D;
-  int32_T N;
-  real_T f;
+  real_T N;
   real_T sita;
   real_T lambda;
+  real_T f;
   real_T xd;
   real_T yd;
   emlrtStack st = { NULL,              /* site */
@@ -390,20 +318,19 @@ void circ_fraunhofer_api(const mxArray * const prhs[8], int32_T nlhs, const
   emxInit_real_T(&st, &b_I, 2, true);
 
   /* Marshall function inputs */
-  L = emlrt_marshallIn(&st, emlrtAliasP(prhs[0]), "L");
-  D = emlrt_marshallIn(&st, emlrtAliasP(prhs[1]), "D");
-  N = c_emlrt_marshallIn(&st, emlrtAliasP(prhs[2]), "N");
-  f = emlrt_marshallIn(&st, emlrtAliasP(prhs[3]), "f");
-  sita = emlrt_marshallIn(&st, emlrtAliasP(prhs[4]), "sita");
-  lambda = emlrt_marshallIn(&st, emlrtAliasP(prhs[5]), "lambda");
-  xd = emlrt_marshallIn(&st, emlrtAliasP(prhs[6]), "xd");
-  yd = emlrt_marshallIn(&st, emlrtAliasP(prhs[7]), "yd");
+  D = emlrt_marshallIn(&st, emlrtAliasP(prhs[0]), "D");
+  N = emlrt_marshallIn(&st, emlrtAliasP(prhs[1]), "N");
+  sita = emlrt_marshallIn(&st, emlrtAliasP(prhs[2]), "sita");
+  lambda = emlrt_marshallIn(&st, emlrtAliasP(prhs[3]), "lambda");
+  f = emlrt_marshallIn(&st, emlrtAliasP(prhs[4]), "f");
+  xd = emlrt_marshallIn(&st, emlrtAliasP(prhs[5]), "xd");
+  yd = emlrt_marshallIn(&st, emlrtAliasP(prhs[6]), "yd");
 
   /* Calling XIL to setup. */
   xilPreEntryPointHost(1U);
 
   /* Invoke the wrapper function */
-  circ_fraunhoferXilWrapper(L, D, N, f, sita, lambda, xd, yd, b_I);
+  circ_fraunhoferXilWrapper(D, N, sita, lambda, f, xd, yd, b_I);
 
   /* Calling Xil to clean-up. */
   xilPostEntryPointHost(1U);

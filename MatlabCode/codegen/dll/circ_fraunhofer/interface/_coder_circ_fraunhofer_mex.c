@@ -2,7 +2,7 @@
  * File: _coder_circ_fraunhofer_mex.c
  *
  * MATLAB Coder version            : 5.0
- * C/C++ source code generated on  : 07-Dec-2021 13:55:02
+ * C/C++ source code generated on  : 13-Dec-2021 23:04:07
  */
 
 /* Include Files */
@@ -11,7 +11,7 @@
 
 /* Function Declarations */
 MEXFUNCTION_LINKAGE void circ_fraunhofer_mexFunction(int32_T nlhs, mxArray *
-  plhs[1], int32_T nrhs, const mxArray *prhs[8]);
+  plhs[1], int32_T nrhs, const mxArray *prhs[7]);
 
 /* Function Definitions */
 
@@ -19,11 +19,11 @@ MEXFUNCTION_LINKAGE void circ_fraunhofer_mexFunction(int32_T nlhs, mxArray *
  * Arguments    : int32_T nlhs
  *                mxArray *plhs[1]
  *                int32_T nrhs
- *                const mxArray *prhs[8]
+ *                const mxArray *prhs[7]
  * Return Type  : void
  */
 void circ_fraunhofer_mexFunction(int32_T nlhs, mxArray *plhs[1], int32_T nrhs,
-  const mxArray *prhs[8])
+  const mxArray *prhs[7])
 {
   const mxArray *outputs[1];
   emlrtStack st = { NULL,              /* site */
@@ -34,8 +34,8 @@ void circ_fraunhofer_mexFunction(int32_T nlhs, mxArray *plhs[1], int32_T nrhs,
   st.tls = emlrtRootTLSGlobal;
 
   /* Check for proper number of arguments. */
-  if (nrhs != 8) {
-    emlrtErrMsgIdAndTxt(&st, "EMLRT:runTime:WrongNumberOfInputs", 5, 12, 8, 4,
+  if (nrhs != 7) {
+    emlrtErrMsgIdAndTxt(&st, "EMLRT:runTime:WrongNumberOfInputs", 5, 12, 7, 4,
                         15, "circ_fraunhofer");
   }
 

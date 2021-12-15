@@ -1,22 +1,22 @@
-function I = circ_fraunhofer(L, D, N, f, sita, lambda, xd, yd)
-    N = double(N);
-    delta = double(L/N);
-    x = double((-N/2:N/2-1))*delta;
-    k = 2*pi/ lambda;
-    [x1,y1] = meshgrid(x);
-    aperture = circ(x1, y1, D, delta, sita, lambda);
-
-    fx = (3.66*lambda * f/D*  (2.0*double((-N/2: N/2-1)) / double(N))) -(xd+f*tand(sita));
-    fy = (3.66*lambda * f/D*  (2.0*double((-N/2: N/2-1)) / double(N))) -(yd+f*tand(sita));
-
-    [x2, y2] = meshgrid(fx,fy);
-    function res = temp_func(aa, bb, cc)
-        res = aa*exp(-1i*k/f*((x2*bb+y2*cc)))*delta^2;
+function I = circ_fraunhofer(D, N, sita, lambda, f, xd, yd)
+    Lp = 10e-3;
+    sita = atan((yd+f*tand(sita))/f);
+    Ls = f*N*lambda/Lp;
+    delta = Ls/N;
+    x = (-N/2:N/2-1)*delta;
+    [x1, y1] = meshgrid(x);
+    r = sqrt(x1.^2 + y1.^2);
+    aperture = double(r < D/2);
+    aperture(r == D/2) = 0.5;
+    aperture = complex(aperture);
+    for ii=1:N
+        phi = double(ii - N/2) * delta * 2*pi*sin(sita) / lambda;
+        aperture(ii, :) = aperture(ii, :).*(cos(phi) + 1i*sin(phi));
     end
-    result = ((arrayfun(@temp_func, aperture, x1, y1, 'UniformOutput', false)));
-    result
-    %result = aperture * exp(-1i*k/f*((x2*x1+y2*y1))) *delta^2;
-    result = result /lambda/f;
+    for ii=1:N
+        phi = double(ii - N/2) * delta * 2*pi*sin(atan(xd/f)) / lambda;
+        aperture(:, ii) = aperture(:, ii).*(cos(phi) + 1i*sin(phi));
+    end
+    result = fftshift(fft2(aperture));
     I=real(result.*conj(result));
-    imagesc(I)
 end

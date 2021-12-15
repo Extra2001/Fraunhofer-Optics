@@ -2,7 +2,7 @@
 ## Makefile generated for MATLAB file/project 'circ_fraunhofer'. 
 ## 
 ## Makefile     : circ_fraunhofer_rtw.mk
-## Generated on : Tue Dec 07 10:39:40 2021
+## Generated on : Sat Dec 11 19:40:03 2021
 ## MATLAB Coder version: 5.0 (R2020a)
 ## 
 ## Build Info:
@@ -30,7 +30,7 @@ MATLAB_BIN                = C:\PROGRA~1\Matlab\bin
 MATLAB_ARCH_BIN           = $(MATLAB_BIN)\win64
 MASTER_ANCHOR_DIR         = 
 START_DIR                 = C:\Users\jingx\Projects\fraunhofer-optics\MatlabCode\codegen\dll\circ_fraunhofer
-TGT_FCN_LIB               = ISO_C
+TGT_FCN_LIB               = ISO_C++
 SOLVER_OBJ                = 
 CLASSIC_INTERFACE         = 0
 MODEL_HAS_DYNAMICALLY_LOADED_SFCNS = 
@@ -178,16 +178,17 @@ INCLUDES = $(INCLUDES_BUILDINFO)
 ## DEFINES
 ###########################################################################
 
+DEFINES_ = -DBUILDING_CIRC_FRAUNHOFER -DMODEL=circ_fraunhofer
 DEFINES_CUSTOM = 
 DEFINES_STANDARD = -DMODEL=circ_fraunhofer
 
-DEFINES = $(DEFINES_CUSTOM) $(DEFINES_STANDARD)
+DEFINES = $(DEFINES_) $(DEFINES_CUSTOM) $(DEFINES_STANDARD)
 
 ###########################################################################
 ## SOURCE FILES
 ###########################################################################
 
-SRCS = $(START_DIR)\rt_nonfinite.c $(START_DIR)\rtGetNaN.c $(START_DIR)\rtGetInf.c $(START_DIR)\circ_fraunhofer_rtwutil.c $(START_DIR)\circ_fraunhofer_data.c $(START_DIR)\circ_fraunhofer_initialize.c $(START_DIR)\circ_fraunhofer_terminate.c $(START_DIR)\circ_fraunhofer.c $(START_DIR)\tand.c $(START_DIR)\circ_fraunhofer_emxutil.c $(START_DIR)\circ_fraunhofer_emxAPI.c
+SRCS = $(START_DIR)\rt_nonfinite.cpp $(START_DIR)\rtGetNaN.cpp $(START_DIR)\rtGetInf.cpp $(START_DIR)\circ_fraunhofer_data.cpp $(START_DIR)\circ_fraunhofer_initialize.cpp $(START_DIR)\circ_fraunhofer_terminate.cpp $(START_DIR)\circ_fraunhofer.cpp $(START_DIR)\fft2.cpp $(START_DIR)\FFTImplementationCallback.cpp
 
 ALL_SRCS = $(SRCS)
 
@@ -195,7 +196,7 @@ ALL_SRCS = $(SRCS)
 ## OBJECTS
 ###########################################################################
 
-OBJS = rt_nonfinite.obj rtGetNaN.obj rtGetInf.obj circ_fraunhofer_rtwutil.obj circ_fraunhofer_data.obj circ_fraunhofer_initialize.obj circ_fraunhofer_terminate.obj circ_fraunhofer.obj tand.obj circ_fraunhofer_emxutil.obj circ_fraunhofer_emxAPI.obj
+OBJS = rt_nonfinite.obj rtGetNaN.obj rtGetInf.obj circ_fraunhofer_data.obj circ_fraunhofer_initialize.obj circ_fraunhofer_terminate.obj circ_fraunhofer.obj fft2.obj FFTImplementationCallback.obj
 
 ALL_OBJS = $(OBJS)
 
@@ -215,7 +216,7 @@ LIBS =
 ## SYSTEM LIBRARIES
 ###########################################################################
 
-SYSTEM_LIBS = 
+SYSTEM_LIBS =  /LIBPATH:"$(MATLAB_ROOT)\bin\win64" "$(MATLAB_ROOT)\bin\win64\libiomp5md.lib"
 
 ###########################################################################
 ## ADDITIONAL TOOLCHAIN FLAGS
@@ -225,17 +226,51 @@ SYSTEM_LIBS =
 # C Compiler
 #---------------
 
+CFLAGS_OPTS = /openmp /wd4101
 CFLAGS_BASIC = $(DEFINES) @$(COMPILER_COMMAND_FILE)
 
-CFLAGS = $(CFLAGS) $(CFLAGS_BASIC)
+CFLAGS = $(CFLAGS) $(CFLAGS_OPTS) $(CFLAGS_BASIC)
 
 #-----------------
 # C++ Compiler
 #-----------------
 
+CPPFLAGS_OPTS = /openmp /wd4101
 CPPFLAGS_BASIC = $(DEFINES) @$(COMPILER_COMMAND_FILE)
 
-CPPFLAGS = $(CPPFLAGS) $(CPPFLAGS_BASIC)
+CPPFLAGS = $(CPPFLAGS) $(CPPFLAGS_OPTS) $(CPPFLAGS_BASIC)
+
+#---------------
+# C++ Linker
+#---------------
+
+CPP_LDFLAGS_ = /nodefaultlib:vcomp  
+
+CPP_LDFLAGS = $(CPP_LDFLAGS) $(CPP_LDFLAGS_)
+
+#------------------------------
+# C++ Shared Library Linker
+#------------------------------
+
+CPP_SHAREDLIB_LDFLAGS_ = /nodefaultlib:vcomp  
+
+CPP_SHAREDLIB_LDFLAGS = $(CPP_SHAREDLIB_LDFLAGS) $(CPP_SHAREDLIB_LDFLAGS_)
+
+#-----------
+# Linker
+#-----------
+
+LDFLAGS_ = /nodefaultlib:vcomp  
+
+LDFLAGS = $(LDFLAGS) $(LDFLAGS_)
+
+#--------------------------
+# Shared Library Linker
+#--------------------------
+
+SHAREDLIB_LDFLAGS_ = /nodefaultlib:vcomp  
+
+SHAREDLIB_LDFLAGS = $(SHAREDLIB_LDFLAGS) $(SHAREDLIB_LDFLAGS_)
 
 ###########################################################################
 ## INLINED COMMANDS
@@ -283,7 +318,7 @@ set_environment_variables :
 
 $(PRODUCT) : $(OBJS) $(PREBUILT_OBJS)
 	@cmd /C "@echo ### Creating dynamic library "$(PRODUCT)" ..."
-	$(LD) $(SHAREDLIB_LDFLAGS) -out:$(PRODUCT) @$(CMD_FILE) $(SYSTEM_LIBS) $(TOOLCHAIN_LIBS)
+	$(CPP_LD) $(CPP_SHAREDLIB_LDFLAGS) -out:$(PRODUCT) @$(CMD_FILE) $(SYSTEM_LIBS) $(TOOLCHAIN_LIBS)
 	@cmd /C "@echo ### Created: $(PRODUCT)"
 
 
@@ -327,48 +362,40 @@ $(PRODUCT) : $(OBJS) $(PREBUILT_OBJS)
 	$(CPP) $(CPPFLAGS) -Fo"$@" "$<"
 
 
-rt_nonfinite.obj : $(START_DIR)\rt_nonfinite.c
-	$(CC) $(CFLAGS) -Fo"$@" $(START_DIR)\rt_nonfinite.c
+rt_nonfinite.obj : $(START_DIR)\rt_nonfinite.cpp
+	$(CPP) $(CPPFLAGS) -Fo"$@" $(START_DIR)\rt_nonfinite.cpp
 
 
-rtGetNaN.obj : $(START_DIR)\rtGetNaN.c
-	$(CC) $(CFLAGS) -Fo"$@" $(START_DIR)\rtGetNaN.c
+rtGetNaN.obj : $(START_DIR)\rtGetNaN.cpp
+	$(CPP) $(CPPFLAGS) -Fo"$@" $(START_DIR)\rtGetNaN.cpp
 
 
-rtGetInf.obj : $(START_DIR)\rtGetInf.c
-	$(CC) $(CFLAGS) -Fo"$@" $(START_DIR)\rtGetInf.c
+rtGetInf.obj : $(START_DIR)\rtGetInf.cpp
+	$(CPP) $(CPPFLAGS) -Fo"$@" $(START_DIR)\rtGetInf.cpp
 
 
-circ_fraunhofer_rtwutil.obj : $(START_DIR)\circ_fraunhofer_rtwutil.c
-	$(CC) $(CFLAGS) -Fo"$@" $(START_DIR)\circ_fraunhofer_rtwutil.c
+circ_fraunhofer_data.obj : $(START_DIR)\circ_fraunhofer_data.cpp
+	$(CPP) $(CPPFLAGS) -Fo"$@" $(START_DIR)\circ_fraunhofer_data.cpp
 
 
-circ_fraunhofer_data.obj : $(START_DIR)\circ_fraunhofer_data.c
-	$(CC) $(CFLAGS) -Fo"$@" $(START_DIR)\circ_fraunhofer_data.c
+circ_fraunhofer_initialize.obj : $(START_DIR)\circ_fraunhofer_initialize.cpp
+	$(CPP) $(CPPFLAGS) -Fo"$@" $(START_DIR)\circ_fraunhofer_initialize.cpp
 
 
-circ_fraunhofer_initialize.obj : $(START_DIR)\circ_fraunhofer_initialize.c
-	$(CC) $(CFLAGS) -Fo"$@" $(START_DIR)\circ_fraunhofer_initialize.c
+circ_fraunhofer_terminate.obj : $(START_DIR)\circ_fraunhofer_terminate.cpp
+	$(CPP) $(CPPFLAGS) -Fo"$@" $(START_DIR)\circ_fraunhofer_terminate.cpp
 
 
-circ_fraunhofer_terminate.obj : $(START_DIR)\circ_fraunhofer_terminate.c
-	$(CC) $(CFLAGS) -Fo"$@" $(START_DIR)\circ_fraunhofer_terminate.c
+circ_fraunhofer.obj : $(START_DIR)\circ_fraunhofer.cpp
+	$(CPP) $(CPPFLAGS) -Fo"$@" $(START_DIR)\circ_fraunhofer.cpp
 
 
-circ_fraunhofer.obj : $(START_DIR)\circ_fraunhofer.c
-	$(CC) $(CFLAGS) -Fo"$@" $(START_DIR)\circ_fraunhofer.c
+fft2.obj : $(START_DIR)\fft2.cpp
+	$(CPP) $(CPPFLAGS) -Fo"$@" $(START_DIR)\fft2.cpp
 
 
-tand.obj : $(START_DIR)\tand.c
-	$(CC) $(CFLAGS) -Fo"$@" $(START_DIR)\tand.c
-
-
-circ_fraunhofer_emxutil.obj : $(START_DIR)\circ_fraunhofer_emxutil.c
-	$(CC) $(CFLAGS) -Fo"$@" $(START_DIR)\circ_fraunhofer_emxutil.c
-
-
-circ_fraunhofer_emxAPI.obj : $(START_DIR)\circ_fraunhofer_emxAPI.c
-	$(CC) $(CFLAGS) -Fo"$@" $(START_DIR)\circ_fraunhofer_emxAPI.c
+FFTImplementationCallback.obj : $(START_DIR)\FFTImplementationCallback.cpp
+	$(CPP) $(CPPFLAGS) -Fo"$@" $(START_DIR)\FFTImplementationCallback.cpp
 
 
 ###########################################################################

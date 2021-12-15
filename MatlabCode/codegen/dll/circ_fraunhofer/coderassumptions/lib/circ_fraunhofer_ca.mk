@@ -2,7 +2,7 @@
 ## Makefile generated for Simulink model 'circ_fraunhofer_ca'. 
 ## 
 ## Makefile     : circ_fraunhofer_ca.mk
-## Generated on : Tue Dec 07 13:55:12 2021
+## Generated on : Mon Dec 13 23:04:26 2021
 ## MATLAB Coder version: 5.0 (R2020a)
 ## 
 ## Build Info:
@@ -31,7 +31,7 @@ MATLAB_BIN                = C:\PROGRA~1\Matlab\bin
 MATLAB_ARCH_BIN           = $(MATLAB_BIN)\win64
 MASTER_ANCHOR_DIR         = 
 START_DIR                 = C:\Users\jingx\Projects\fraunhofer-optics\MatlabCode\codegen\dll\circ_fraunhofer
-TGT_FCN_LIB               = ISO_C
+TGT_FCN_LIB               = ISO_C++
 SOLVER_OBJ                = 
 CLASSIC_INTERFACE         = 0
 MODEL_HAS_DYNAMICALLY_LOADED_SFCNS = 
@@ -179,10 +179,11 @@ INCLUDES = $(INCLUDES_BUILDINFO)
 ## DEFINES
 ###########################################################################
 
+DEFINES_ = -DCA_CHECK_FLOATING_POINT_ENABLED=1 -DBUILDING_CIRC_FRAUNHOFER -DCA_CHECK_LONG_LONG_ENABLED=1 -DCA_CHECK_DAZ_ENABLED=1
 DEFINES_CUSTOM = 
 DEFINES_OPTS = -DCA_CHECK_FLOATING_POINT_ENABLED=1 -DCA_CHECK_LONG_LONG_ENABLED=1 -DCA_CHECK_DAZ_ENABLED=1
 
-DEFINES = $(DEFINES_CUSTOM) $(DEFINES_OPTS)
+DEFINES = $(DEFINES_) $(DEFINES_CUSTOM) $(DEFINES_OPTS)
 
 ###########################################################################
 ## SOURCE FILES

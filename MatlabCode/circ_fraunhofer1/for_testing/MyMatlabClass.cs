@@ -1,6 +1,6 @@
 /*
 * MATLAB Compiler: 8.0 (R2020a)
-* Date: Tue Dec  7 14:12:28 2021
+* Date: Tue Dec  7 22:17:02 2021
 * Arguments:
 * "-B""macro_default""-W""dotnet:circ_fraunhofer,MyMatlabClass,4.0,private,version=1.0""-T
 * ""link:lib""-d""C:\Users\jingx\Projects\fraunhofer-optics\MatlabCode\circ_fraunhofer1\fo
@@ -148,8 +148,6 @@ namespace circ_fraunhofer
     /// function.
     /// </summary>
     /// <remarks>
-    /// M-Documentation:
-    /// imagesc(aperture)
     /// </remarks>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
@@ -164,15 +162,13 @@ namespace circ_fraunhofer
     /// function.
     /// </summary>
     /// <remarks>
-    /// M-Documentation:
-    /// imagesc(aperture)
     /// </remarks>
-    /// <param name="L">Input argument #1</param>
+    /// <param name="D">Input argument #1</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray circ_fraunhofer(MWArray L)
+    public MWArray circ_fraunhofer(MWArray D)
     {
-      return mcr.EvaluateFunction("circ_fraunhofer", L);
+      return mcr.EvaluateFunction("circ_fraunhofer", D);
     }
 
 
@@ -181,16 +177,14 @@ namespace circ_fraunhofer
     /// function.
     /// </summary>
     /// <remarks>
-    /// M-Documentation:
-    /// imagesc(aperture)
     /// </remarks>
-    /// <param name="L">Input argument #1</param>
-    /// <param name="D">Input argument #2</param>
+    /// <param name="D">Input argument #1</param>
+    /// <param name="N">Input argument #2</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray circ_fraunhofer(MWArray L, MWArray D)
+    public MWArray circ_fraunhofer(MWArray D, MWArray N)
     {
-      return mcr.EvaluateFunction("circ_fraunhofer", L, D);
+      return mcr.EvaluateFunction("circ_fraunhofer", D, N);
     }
 
 
@@ -199,17 +193,15 @@ namespace circ_fraunhofer
     /// function.
     /// </summary>
     /// <remarks>
-    /// M-Documentation:
-    /// imagesc(aperture)
     /// </remarks>
-    /// <param name="L">Input argument #1</param>
-    /// <param name="D">Input argument #2</param>
-    /// <param name="N">Input argument #3</param>
+    /// <param name="D">Input argument #1</param>
+    /// <param name="N">Input argument #2</param>
+    /// <param name="sita">Input argument #3</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray circ_fraunhofer(MWArray L, MWArray D, MWArray N)
+    public MWArray circ_fraunhofer(MWArray D, MWArray N, MWArray sita)
     {
-      return mcr.EvaluateFunction("circ_fraunhofer", L, D, N);
+      return mcr.EvaluateFunction("circ_fraunhofer", D, N, sita);
     }
 
 
@@ -218,18 +210,16 @@ namespace circ_fraunhofer
     /// function.
     /// </summary>
     /// <remarks>
-    /// M-Documentation:
-    /// imagesc(aperture)
     /// </remarks>
-    /// <param name="L">Input argument #1</param>
-    /// <param name="D">Input argument #2</param>
-    /// <param name="N">Input argument #3</param>
-    /// <param name="f">Input argument #4</param>
+    /// <param name="D">Input argument #1</param>
+    /// <param name="N">Input argument #2</param>
+    /// <param name="sita">Input argument #3</param>
+    /// <param name="lambda">Input argument #4</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray circ_fraunhofer(MWArray L, MWArray D, MWArray N, MWArray f)
+    public MWArray circ_fraunhofer(MWArray D, MWArray N, MWArray sita, MWArray lambda)
     {
-      return mcr.EvaluateFunction("circ_fraunhofer", L, D, N, f);
+      return mcr.EvaluateFunction("circ_fraunhofer", D, N, sita, lambda);
     }
 
 
@@ -238,20 +228,18 @@ namespace circ_fraunhofer
     /// function.
     /// </summary>
     /// <remarks>
-    /// M-Documentation:
-    /// imagesc(aperture)
     /// </remarks>
-    /// <param name="L">Input argument #1</param>
-    /// <param name="D">Input argument #2</param>
-    /// <param name="N">Input argument #3</param>
-    /// <param name="f">Input argument #4</param>
-    /// <param name="sita">Input argument #5</param>
+    /// <param name="D">Input argument #1</param>
+    /// <param name="N">Input argument #2</param>
+    /// <param name="sita">Input argument #3</param>
+    /// <param name="lambda">Input argument #4</param>
+    /// <param name="xd">Input argument #5</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray circ_fraunhofer(MWArray L, MWArray D, MWArray N, MWArray f, MWArray 
-                             sita)
+    public MWArray circ_fraunhofer(MWArray D, MWArray N, MWArray sita, MWArray lambda, 
+                             MWArray xd)
     {
-      return mcr.EvaluateFunction("circ_fraunhofer", L, D, N, f, sita);
+      return mcr.EvaluateFunction("circ_fraunhofer", D, N, sita, lambda, xd);
     }
 
 
@@ -260,70 +248,19 @@ namespace circ_fraunhofer
     /// function.
     /// </summary>
     /// <remarks>
-    /// M-Documentation:
-    /// imagesc(aperture)
     /// </remarks>
-    /// <param name="L">Input argument #1</param>
-    /// <param name="D">Input argument #2</param>
-    /// <param name="N">Input argument #3</param>
-    /// <param name="f">Input argument #4</param>
-    /// <param name="sita">Input argument #5</param>
-    /// <param name="lambda">Input argument #6</param>
+    /// <param name="D">Input argument #1</param>
+    /// <param name="N">Input argument #2</param>
+    /// <param name="sita">Input argument #3</param>
+    /// <param name="lambda">Input argument #4</param>
+    /// <param name="xd">Input argument #5</param>
+    /// <param name="yd">Input argument #6</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray circ_fraunhofer(MWArray L, MWArray D, MWArray N, MWArray f, MWArray 
-                             sita, MWArray lambda)
+    public MWArray circ_fraunhofer(MWArray D, MWArray N, MWArray sita, MWArray lambda, 
+                             MWArray xd, MWArray yd)
     {
-      return mcr.EvaluateFunction("circ_fraunhofer", L, D, N, f, sita, lambda);
-    }
-
-
-    /// <summary>
-    /// Provides a single output, 7-input MWArrayinterface to the circ_fraunhofer MATLAB
-    /// function.
-    /// </summary>
-    /// <remarks>
-    /// M-Documentation:
-    /// imagesc(aperture)
-    /// </remarks>
-    /// <param name="L">Input argument #1</param>
-    /// <param name="D">Input argument #2</param>
-    /// <param name="N">Input argument #3</param>
-    /// <param name="f">Input argument #4</param>
-    /// <param name="sita">Input argument #5</param>
-    /// <param name="lambda">Input argument #6</param>
-    /// <param name="xd">Input argument #7</param>
-    /// <returns>An MWArray containing the first output argument.</returns>
-    ///
-    public MWArray circ_fraunhofer(MWArray L, MWArray D, MWArray N, MWArray f, MWArray 
-                             sita, MWArray lambda, MWArray xd)
-    {
-      return mcr.EvaluateFunction("circ_fraunhofer", L, D, N, f, sita, lambda, xd);
-    }
-
-
-    /// <summary>
-    /// Provides a single output, 8-input MWArrayinterface to the circ_fraunhofer MATLAB
-    /// function.
-    /// </summary>
-    /// <remarks>
-    /// M-Documentation:
-    /// imagesc(aperture)
-    /// </remarks>
-    /// <param name="L">Input argument #1</param>
-    /// <param name="D">Input argument #2</param>
-    /// <param name="N">Input argument #3</param>
-    /// <param name="f">Input argument #4</param>
-    /// <param name="sita">Input argument #5</param>
-    /// <param name="lambda">Input argument #6</param>
-    /// <param name="xd">Input argument #7</param>
-    /// <param name="yd">Input argument #8</param>
-    /// <returns>An MWArray containing the first output argument.</returns>
-    ///
-    public MWArray circ_fraunhofer(MWArray L, MWArray D, MWArray N, MWArray f, MWArray 
-                             sita, MWArray lambda, MWArray xd, MWArray yd)
-    {
-      return mcr.EvaluateFunction("circ_fraunhofer", L, D, N, f, sita, lambda, xd, yd);
+      return mcr.EvaluateFunction("circ_fraunhofer", D, N, sita, lambda, xd, yd);
     }
 
 
@@ -332,8 +269,6 @@ namespace circ_fraunhofer
     /// function.
     /// </summary>
     /// <remarks>
-    /// M-Documentation:
-    /// imagesc(aperture)
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
     /// <returns>An Array of length "numArgsOut" containing the output
@@ -350,17 +285,15 @@ namespace circ_fraunhofer
     /// function.
     /// </summary>
     /// <remarks>
-    /// M-Documentation:
-    /// imagesc(aperture)
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="L">Input argument #1</param>
+    /// <param name="D">Input argument #1</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] circ_fraunhofer(int numArgsOut, MWArray L)
+    public MWArray[] circ_fraunhofer(int numArgsOut, MWArray D)
     {
-      return mcr.EvaluateFunction(numArgsOut, "circ_fraunhofer", L);
+      return mcr.EvaluateFunction(numArgsOut, "circ_fraunhofer", D);
     }
 
 
@@ -369,18 +302,16 @@ namespace circ_fraunhofer
     /// function.
     /// </summary>
     /// <remarks>
-    /// M-Documentation:
-    /// imagesc(aperture)
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="L">Input argument #1</param>
-    /// <param name="D">Input argument #2</param>
+    /// <param name="D">Input argument #1</param>
+    /// <param name="N">Input argument #2</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] circ_fraunhofer(int numArgsOut, MWArray L, MWArray D)
+    public MWArray[] circ_fraunhofer(int numArgsOut, MWArray D, MWArray N)
     {
-      return mcr.EvaluateFunction(numArgsOut, "circ_fraunhofer", L, D);
+      return mcr.EvaluateFunction(numArgsOut, "circ_fraunhofer", D, N);
     }
 
 
@@ -389,19 +320,17 @@ namespace circ_fraunhofer
     /// function.
     /// </summary>
     /// <remarks>
-    /// M-Documentation:
-    /// imagesc(aperture)
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="L">Input argument #1</param>
-    /// <param name="D">Input argument #2</param>
-    /// <param name="N">Input argument #3</param>
+    /// <param name="D">Input argument #1</param>
+    /// <param name="N">Input argument #2</param>
+    /// <param name="sita">Input argument #3</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] circ_fraunhofer(int numArgsOut, MWArray L, MWArray D, MWArray N)
+    public MWArray[] circ_fraunhofer(int numArgsOut, MWArray D, MWArray N, MWArray sita)
     {
-      return mcr.EvaluateFunction(numArgsOut, "circ_fraunhofer", L, D, N);
+      return mcr.EvaluateFunction(numArgsOut, "circ_fraunhofer", D, N, sita);
     }
 
 
@@ -410,21 +339,19 @@ namespace circ_fraunhofer
     /// function.
     /// </summary>
     /// <remarks>
-    /// M-Documentation:
-    /// imagesc(aperture)
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="L">Input argument #1</param>
-    /// <param name="D">Input argument #2</param>
-    /// <param name="N">Input argument #3</param>
-    /// <param name="f">Input argument #4</param>
+    /// <param name="D">Input argument #1</param>
+    /// <param name="N">Input argument #2</param>
+    /// <param name="sita">Input argument #3</param>
+    /// <param name="lambda">Input argument #4</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] circ_fraunhofer(int numArgsOut, MWArray L, MWArray D, MWArray N, 
-                               MWArray f)
+    public MWArray[] circ_fraunhofer(int numArgsOut, MWArray D, MWArray N, MWArray sita, 
+                               MWArray lambda)
     {
-      return mcr.EvaluateFunction(numArgsOut, "circ_fraunhofer", L, D, N, f);
+      return mcr.EvaluateFunction(numArgsOut, "circ_fraunhofer", D, N, sita, lambda);
     }
 
 
@@ -433,22 +360,20 @@ namespace circ_fraunhofer
     /// function.
     /// </summary>
     /// <remarks>
-    /// M-Documentation:
-    /// imagesc(aperture)
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="L">Input argument #1</param>
-    /// <param name="D">Input argument #2</param>
-    /// <param name="N">Input argument #3</param>
-    /// <param name="f">Input argument #4</param>
-    /// <param name="sita">Input argument #5</param>
+    /// <param name="D">Input argument #1</param>
+    /// <param name="N">Input argument #2</param>
+    /// <param name="sita">Input argument #3</param>
+    /// <param name="lambda">Input argument #4</param>
+    /// <param name="xd">Input argument #5</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] circ_fraunhofer(int numArgsOut, MWArray L, MWArray D, MWArray N, 
-                               MWArray f, MWArray sita)
+    public MWArray[] circ_fraunhofer(int numArgsOut, MWArray D, MWArray N, MWArray sita, 
+                               MWArray lambda, MWArray xd)
     {
-      return mcr.EvaluateFunction(numArgsOut, "circ_fraunhofer", L, D, N, f, sita);
+      return mcr.EvaluateFunction(numArgsOut, "circ_fraunhofer", D, N, sita, lambda, xd);
     }
 
 
@@ -457,77 +382,21 @@ namespace circ_fraunhofer
     /// function.
     /// </summary>
     /// <remarks>
-    /// M-Documentation:
-    /// imagesc(aperture)
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="L">Input argument #1</param>
-    /// <param name="D">Input argument #2</param>
-    /// <param name="N">Input argument #3</param>
-    /// <param name="f">Input argument #4</param>
-    /// <param name="sita">Input argument #5</param>
-    /// <param name="lambda">Input argument #6</param>
+    /// <param name="D">Input argument #1</param>
+    /// <param name="N">Input argument #2</param>
+    /// <param name="sita">Input argument #3</param>
+    /// <param name="lambda">Input argument #4</param>
+    /// <param name="xd">Input argument #5</param>
+    /// <param name="yd">Input argument #6</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] circ_fraunhofer(int numArgsOut, MWArray L, MWArray D, MWArray N, 
-                               MWArray f, MWArray sita, MWArray lambda)
+    public MWArray[] circ_fraunhofer(int numArgsOut, MWArray D, MWArray N, MWArray sita, 
+                               MWArray lambda, MWArray xd, MWArray yd)
     {
-      return mcr.EvaluateFunction(numArgsOut, "circ_fraunhofer", L, D, N, f, sita, lambda);
-    }
-
-
-    /// <summary>
-    /// Provides the standard 7-input MWArray interface to the circ_fraunhofer MATLAB
-    /// function.
-    /// </summary>
-    /// <remarks>
-    /// M-Documentation:
-    /// imagesc(aperture)
-    /// </remarks>
-    /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="L">Input argument #1</param>
-    /// <param name="D">Input argument #2</param>
-    /// <param name="N">Input argument #3</param>
-    /// <param name="f">Input argument #4</param>
-    /// <param name="sita">Input argument #5</param>
-    /// <param name="lambda">Input argument #6</param>
-    /// <param name="xd">Input argument #7</param>
-    /// <returns>An Array of length "numArgsOut" containing the output
-    /// arguments.</returns>
-    ///
-    public MWArray[] circ_fraunhofer(int numArgsOut, MWArray L, MWArray D, MWArray N, 
-                               MWArray f, MWArray sita, MWArray lambda, MWArray xd)
-    {
-      return mcr.EvaluateFunction(numArgsOut, "circ_fraunhofer", L, D, N, f, sita, lambda, xd);
-    }
-
-
-    /// <summary>
-    /// Provides the standard 8-input MWArray interface to the circ_fraunhofer MATLAB
-    /// function.
-    /// </summary>
-    /// <remarks>
-    /// M-Documentation:
-    /// imagesc(aperture)
-    /// </remarks>
-    /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="L">Input argument #1</param>
-    /// <param name="D">Input argument #2</param>
-    /// <param name="N">Input argument #3</param>
-    /// <param name="f">Input argument #4</param>
-    /// <param name="sita">Input argument #5</param>
-    /// <param name="lambda">Input argument #6</param>
-    /// <param name="xd">Input argument #7</param>
-    /// <param name="yd">Input argument #8</param>
-    /// <returns>An Array of length "numArgsOut" containing the output
-    /// arguments.</returns>
-    ///
-    public MWArray[] circ_fraunhofer(int numArgsOut, MWArray L, MWArray D, MWArray N, 
-                               MWArray f, MWArray sita, MWArray lambda, MWArray xd, 
-                               MWArray yd)
-    {
-      return mcr.EvaluateFunction(numArgsOut, "circ_fraunhofer", L, D, N, f, sita, lambda, xd, yd);
+      return mcr.EvaluateFunction(numArgsOut, "circ_fraunhofer", D, N, sita, lambda, xd, yd);
     }
 
 
@@ -539,8 +408,6 @@ namespace circ_fraunhofer
     /// <remarks>
     /// This method will allocate and return by reference the output argument
     /// array.<newpara></newpara>
-    /// M-Documentation:
-    /// imagesc(aperture)
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return</param>
     /// <param name= "argsOut">Array of MWArray output arguments</param>

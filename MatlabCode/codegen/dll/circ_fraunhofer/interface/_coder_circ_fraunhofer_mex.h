@@ -2,7 +2,7 @@
  * File: _coder_circ_fraunhofer_mex.h
  *
  * MATLAB Coder version            : 5.0
- * C/C++ source code generated on  : 07-Dec-2021 13:55:02
+ * C/C++ source code generated on  : 13-Dec-2021 23:04:07
  */
 
 #ifndef _CODER_CIRC_FRAUNHOFER_MEX_H
@@ -16,22 +16,13 @@
 #include "mex.h"
 #include "emlrt.h"
 #include "_coder_circ_fraunhofer_api.h"
+#define MAX_THREADS                    omp_get_max_threads()
 
 /* Function Declarations */
-#ifdef __cplusplus
+MEXFUNCTION_LINKAGE void mexFunction(int32_T nlhs, mxArray *plhs[], int32_T nrhs,
+  const mxArray *prhs[]);
+extern emlrtCTX mexFunctionCreateRootTLS(void);
 
-extern "C" {
-
-#endif
-
-  MEXFUNCTION_LINKAGE void mexFunction(int32_T nlhs, mxArray *plhs[], int32_T
-    nrhs, const mxArray *prhs[]);
-  extern emlrtCTX mexFunctionCreateRootTLS(void);
-
-#ifdef __cplusplus
-
-}
-#endif
 #endif
 
 /*

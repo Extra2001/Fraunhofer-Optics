@@ -1,75 +1,69 @@
-/*
- * File: circ_fraunhofer_types.h
- *
- * MATLAB Coder version            : 5.0
- * C/C++ source code generated on  : 07-Dec-2021 13:55:02
- */
-
+//
+// File: circ_fraunhofer_types.h
+//
+// MATLAB Coder version            : 5.0
+// C/C++ source code generated on  : 13-Dec-2021 23:04:07
+//
 #ifndef CIRC_FRAUNHOFER_TYPES_H
 #define CIRC_FRAUNHOFER_TYPES_H
 
-/* Include Files */
+// Include Files
 #include "rtwtypes.h"
-
-/* Type Definitions */
-#ifndef typedef_emxArray_creal_T
-#define typedef_emxArray_creal_T
-
-typedef struct {
-  creal_T *data;
-  int *size;
-  int allocatedSize;
-  int numDimensions;
-  boolean_T canFreeData;
-} emxArray_creal_T;
-
-#endif                                 /*typedef_emxArray_creal_T*/
-
-#ifndef struct_emxArray_int32_T
-#define struct_emxArray_int32_T
-
-struct emxArray_int32_T
-{
-  int *data;
-  int *size;
-  int allocatedSize;
-  int numDimensions;
-  boolean_T canFreeData;
-};
-
-#endif                                 /*struct_emxArray_int32_T*/
-
-#ifndef typedef_emxArray_int32_T
-#define typedef_emxArray_int32_T
-
-typedef struct emxArray_int32_T emxArray_int32_T;
-
-#endif                                 /*typedef_emxArray_int32_T*/
-
-#ifndef struct_emxArray_real_T
-#define struct_emxArray_real_T
-
-struct emxArray_real_T
-{
-  double *data;
-  int *size;
-  int allocatedSize;
-  int numDimensions;
-  boolean_T canFreeData;
-};
-
-#endif                                 /*struct_emxArray_real_T*/
-
-#ifndef typedef_emxArray_real_T
-#define typedef_emxArray_real_T
-
-typedef struct emxArray_real_T emxArray_real_T;
-
-#endif                                 /*typedef_emxArray_real_T*/
+#include "coder_array.h"
+#ifdef CIRC_FRAUNHOFER_XIL_BUILD
+#if defined(_MSC_VER) || defined(__LCC__)
+#define CIRC_FRAUNHOFER_DLL_EXPORT     __declspec(dllimport)
+#else
+#define CIRC_FRAUNHOFER_DLL_EXPORT
 #endif
 
-/*
- * File trailer for circ_fraunhofer_types.h
- *
- * [EOF]
- */
+#elif defined(BUILDING_CIRC_FRAUNHOFER)
+#if defined(_MSC_VER) || defined(__LCC__)
+#define CIRC_FRAUNHOFER_DLL_EXPORT     __declspec(dllexport)
+#else
+#define CIRC_FRAUNHOFER_DLL_EXPORT     __attribute__ ((visibility("default")))
+#endif
+
+#else
+#define CIRC_FRAUNHOFER_DLL_EXPORT
+#endif
+
+#ifdef _MSC_VER
+
+#pragma warning(push)
+#pragma warning(disable : 4251)
+
+#endif
+
+// Type Definitions
+class CIRC_FRAUNHOFER_DLL_EXPORT FFTImplementationCallback
+{
+ public:
+  static void r2br_r2dit_trig(const coder::array<creal_T, 2U> &x, int
+    n1_unsigned, const coder::array<double, 2U> &costab, const coder::array<
+    double, 2U> &sintab, coder::array<creal_T, 2U> &y);
+  static void dobluesteinfft(const coder::array<creal_T, 2U> &x, int n2blue, int
+    nfft, const coder::array<double, 2U> &costab, const coder::array<double, 2U>
+    &sintab, const coder::array<double, 2U> &sintabinv, coder::array<creal_T, 2U>
+    &y);
+  FFTImplementationCallback();
+  ~FFTImplementationCallback();
+ protected:
+  static void r2br_r2dit_trig_impl(const coder::array<creal_T, 1U> &x, int
+    unsigned_nRows, const coder::array<double, 2U> &costab, const coder::array<
+    double, 2U> &sintab, coder::array<creal_T, 1U> &y);
+};
+
+#define MAX_THREADS                    omp_get_max_threads()
+#ifdef _MSC_VER
+
+#pragma warning(pop)
+
+#endif
+#endif
+
+//
+// File trailer for circ_fraunhofer_types.h
+//
+// [EOF]
+//
