@@ -19,4 +19,6 @@ function I = circ_fraunhofer(D, N, sita, lambda, f, xd, yd)
     end
     result = fftshift(fft2(aperture));
     I=real(result.*conj(result));
+    I=I./max(I);
+    surf(x1, y1, I)
 end
